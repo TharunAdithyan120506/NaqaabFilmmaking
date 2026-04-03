@@ -1,52 +1,119 @@
-import { useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import CinematicIntro from "@/components/CinematicIntro";
+import FilmGrain from "@/components/FilmGrain";
+import CustomCursor from "@/components/CustomCursor";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import FilmsRail from "@/components/FilmsRail";
+import AboutSection from "@/components/AboutSection";
+import EventsSection from "@/components/EventsSection";
+import NaqaabPicks from "@/components/NaqaabPicks";
+import TeamSection from "@/components/TeamSection";
+import MemberPortal from "@/components/MemberPortal";
+import SocialFooter from "@/components/SocialFooter";
+import InterestFormModal from "@/components/InterestFormModal";
+import LoginModal from "@/components/LoginModal";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
+function App() {
+  const [introComplete, setIntroComplete] = useState(false);
+  const [showInterestForm, setShowInterestForm] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    helloWorldApi();
+    const saved = localStorage.getItem("naqaab_user");
+    if (saved) setUser(JSON.parse(saved));
+  }, []);
+
+  const handleLogin = useCallback((userData) => {
+    setUser(userData);
+    localStorage.setItem("naqaab_user", JSON.stringify(userData));
+    setShowLogin(false);
+  }, []);
+
+  const handleLogout = useCallback(() => {
+    setUser(null);
+    localStorage.removeItem("naqaab_user");
+  }, []);
+
+  const handleSkipIntro = useCallback(() => {
+    setIntroComplete(true);
   }, []);
 
   return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+    <div className="App" style={{ background: "var(--black)" }}>
+      <FilmGrain />
+      <CustomCursor />
 
-function App() {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      {!introComplete && (
+        <CinematicIntro
+          onComplete={() => setIntroComplete(true)}
+          onSkip={handleSkipIntro}
+        />
+      )}
+
+      <div style={{ opacity: introComplete ? 1 : 0, transition: "opacity 0.6s ease" }}>
+        <Navbar
+          user={user}
+          onLoginClick={() => setShowLogin(true)}
+          onLogout={handleLogout}
+        />
+
+        <main>
+          <section id="hero">
+            <HeroSection
+              onExploreClick={() => {
+                document.getElementById("films")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              onJoinClick={() => setShowInterestForm(true)}
+            />
+          </section>
+
+          <section id="films">
+            <FilmsRail />
+          </section>
+
+          <section id="about">
+            <AboutSection />
+          </section>
+
+          <section id="events">
+            <EventsSection />
+          </section>
+
+          <section id="picks">
+            <NaqaabPicks />
+          </section>
+
+          <section id="team">
+            <TeamSection />
+          </section>
+
+          <section id="portal">
+            <MemberPortal
+              user={user}
+              onJoinClick={() => setShowInterestForm(true)}
+              onLoginClick={() => setShowLogin(true)}
+              onLogout={handleLogout}
+            />
+          </section>
+
+          <section id="connect">
+            <SocialFooter />
+          </section>
+        </main>
+      </div>
+
+      <InterestFormModal
+        isOpen={showInterestForm}
+        onClose={() => setShowInterestForm(false)}
+      />
+      <LoginModal
+        isOpen={showLogin}
+        onClose={() => setShowLogin(false)}
+        onLogin={handleLogin}
+      />
     </div>
   );
 }
