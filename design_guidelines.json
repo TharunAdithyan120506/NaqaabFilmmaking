@@ -1,0 +1,97 @@
+{
+  "theme": "dark",
+  "archetype": "5 (Jewel & Luxury / Cinematic)",
+  "colors": {
+    "background_base": "#050505",
+    "background_card": "#0d0d0d",
+    "background_elevation": "#2e2e2e",
+    "border": "#1a1a1a",
+    "text_primary": "#f5f0eb",
+    "text_muted": "#a0998e",
+    "accent_gold": "#c9a84c",
+    "accent_teal": "#1de0cc",
+    "accent_crimson": "#c0392b"
+  },
+  "fonts": {
+    "heading_display": "'Bebas Neue', sans-serif",
+    "heading_serif": "'Playfair Display', serif",
+    "body": "'DM Mono', monospace",
+    "metadata": "'Space Mono', monospace",
+    "decorative": "'Dancing Script', cursive",
+    "wordmark": "'ArabDances', cursive",
+    "google_fonts_url": "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@400..700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+  },
+  "layout_and_spacing": {
+    "geometry": "Sharp edges only. Apply 'rounded-none' globally. NO curved or rounded corners.",
+    "section_breaks": "Diagonal section breaks using clip-path (e.g., clip-path: polygon(0 0, 100% 5vw, 100% 100%, 0 calc(100% - 5vw)))",
+    "container_padding": "Generous, cinematic spacing. p-8, p-16, py-24, py-32.",
+    "letterbox": "Include fixed top and bottom black bars (h-12 or h-16) with z-[100] to create a cinematic 2.35:1 aspect ratio layout on the viewport."
+  },
+  "visual_effects": {
+    "film_grain": "A fixed full-screen div with pointer-events-none, mix-blend-overlay or mix-blend-screen, containing a noisy SVG or CSS grain texture, with opacity around 20-30%.",
+    "glitch_text": "Hero text must feature CSS keyframe glitch animations (RGB split effect using text-shadow with teal #1de0cc and crimson #c0392b).",
+    "custom_cursor": "Global custom cursor. Hide default cursor (cursor-none on body). Custom div following mouse pointer, styled like a film reel crosshair or minimal gold dot with a hollow outer circle.",
+    "scrollbar": "Custom slim scrollbar styling in CSS. Track: #050505, Thumb: #c9a84c (gold).",
+    "text_selection": "Global text selection styling: ::selection { background-color: #c9a84c; color: #050505; }"
+  },
+  "components": {
+    "navbar": "Sticky, z-50 (positioned below the top letterbox bar). backdrop-blur-xl bg-[#050505]/60, minimal typography.",
+    "hero": "Full viewport height (min-h-screen). Glitch text. Parallax background image. Dramatic lighting/dark overlay using bg-black/60 to let text pop.",
+    "horizontal_rail": "Netflix-style horizontal scrolling container for 'Upcoming Films'. Use SwiperJS or Framer Motion horizontal drag. Hide default scrollbars. Hover scale effect (z-index increase, scale-105).",
+    "3d_tilt_cards": "Use react-parallax-tilt or framer-motion to create subtle 3D rotation on mouse movement for 'Team Members'.",
+    "events_tabs": "Minimalist raw HTML/Tailwind tabs. Active state text: Gold (#c9a84c), bordered bottom. Inactive: Dim white (#a0998e).",
+    "film_ticker": "Marquee / Infinite horizontal scroll of film reviews ('Naqaab Picks'). Use react-fast-marquee. Font: Space Mono.",
+    "member_portal": "Implement simple localStorage-based Auth form. Dark minimalist inputs with bottom borders only.",
+    "buttons": "Flat, rectangular (rounded-none). Primary: bg-[#c9a84c] text-[#050505] hover:bg-white. Secondary: border border-[#c9a84c] text-[#c9a84c] hover:bg-[#c9a84c]/10."
+  },
+  "libraries": {
+    "motion": "framer-motion, lenis (for smooth momentum scroll)",
+    "icons": "lucide-react",
+    "carousel": "swiper",
+    "other": "react-fast-marquee (for ticker), react-parallax-tilt (for 3D cards)"
+  },
+  "image_urls": [
+    {
+      "url": "https://images.unsplash.com/photo-1558365904-e77a613549e0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNTl8MHwxfHNlYXJjaHwxfHxjaW5lbWElMjBjYW1lcmElMjBkYXJrfGVufDB8fHx8MTc3NTIwNjM1Nnww&ixlib=rb-4.1.0&q=85",
+      "category": "hero_background",
+      "description": "Close up of a cinema camera lens. Great for parallax hero background."
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1554941068-21312a20e276?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNTl8MHwxfHNlYXJjaHw0fHxjaW5lbWElMjBjYW1lcmElMjBkYXJrfGVufDB8fHx8MTc3NTIwNjM1Nnww&ixlib=rb-4.1.0&q=85",
+      "category": "about_section",
+      "description": "Black video camera with slider, ideal for the 'About the Club' section imagery."
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1600353701005-faa851a03bdb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MDV8MHwxfHNlYXJjaHwzfHxmaWxtJTIwZGlyZWN0b3IlMjBvbiUyMHNldHxlbnwwfHx8fDE3NzUyMDYzNTZ8MA&ixlib=rb-4.1.0&q=85",
+      "category": "team_or_events",
+      "description": "Film director holding a light on set, perfect for member portal or events."
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1576714645198-7eebf227a483?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MDV8MHwxfHNlYXJjaHwyfHxmaWxtJTIwZGlyZWN0b3IlMjBvbiUyMHNldHxlbnwwfHx8fDE3NzUyMDYzNTZ8MA&ixlib=rb-4.1.0&q=85",
+      "category": "horizontal_rail_poster",
+      "description": "Director near video camera, use as a placeholder for a film poster in the Netflix rail."
+    },
+    {
+      "url": "https://images.pexels.com/photos/8088387/pexels-photo-8088387.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "category": "horizontal_rail_poster",
+      "description": "Director in chair, another placeholder for the film posters."
+    }
+  ],
+  "testing": {
+    "attributes": "ALL interactive elements must use data-testid (e.g., data-testid='login-button')."
+  },
+  "instructions_to_main_agent": [
+    "Strictly follow the color palette provided: #050505 (bg), #0d0d0d (cards), #c9a84c (gold accent), #1de0cc (teal accent).",
+    "Ensure all fonts are imported via the Google Fonts URL and applied. 'Bebas Neue' for main headings, 'Playfair Display' for subheadings.",
+    "Implement a custom cinematic cursor that hides the default one.",
+    "Add a fixed 'film grain' overlay with pointer-events-none over the entire layout.",
+    "Ensure 'rounded-none' is heavily used across the board. No curves.",
+    "Implement the custom glitch effect for the hero text using CSS keyframes or Framer Motion.",
+    "Integrate the letterbox bars at the top and bottom (fixed black bars h-12 or h-16).",
+    "Build a Member Portal with localStorage-based Auth.",
+    "Build a Netflix-style Swiper rail for 'Upcoming Films'.",
+    "Include a 'Naqaab Picks' infinite horizontal film review ticker.",
+    "Add an 'Interest Form Modal' triggered from call-to-actions.",
+    "If the custom user logo/header assets are not immediately available as local files, structure the layout using the provided fallback 'hero_background' from Unsplash, and style the wordmark font 'ArabDances' as a text fallback for the logo."
+  ]
+}
