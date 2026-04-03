@@ -6,6 +6,14 @@ A cinematic, Hollywood-grade React website with a strict black-and-white brand i
 
 ---
 
+## 🌐 Live Demo
+
+**[Visit the live website →](https://filmmaking-llxq.onrender.com/)**
+
+The website is currently deployed on Render. Explore the cinematic experience, view productions, and join our community!
+
+---
+
 ## ✨ Features
 
 ### 🎬 Cinematic Experience
@@ -86,16 +94,16 @@ cp .env.example .env
 # Edit .env with your MongoDB URI and JWT secret
 
 # 5. Run the server
-uvicorn main:app --reload --port 8000
+uvicorn server:app --reload --port 8000
 ```
 
 ### Environment Variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017` |
-| `JWT_SECRET` | JWT signing secret | (required) |
-| `PORT` | Backend port | `8000` |
+| `MONGO_URL` | MongoDB connection string | (required) |
+| `DB_NAME` | MongoDB database name | `naqaab` |
+| `CORS_ORIGINS` | Comma-separated allowed origins | `*` |
 
 ---
 
@@ -123,7 +131,7 @@ NaqaabFilmmaking/
 │   │   └── index.css           # Global design system
 │   └── package.json
 ├── backend/
-│   ├── main.py                 # FastAPI entry
+│   ├── server.py               # FastAPI entry
 │   ├── requirements.txt
 │   └── ...
 └── README.md
@@ -142,6 +150,21 @@ NaqaabFilmmaking/
 | Icons | Lucide React |
 | Backend | FastAPI + Motor (MongoDB) |
 | Auth | JWT + bcrypt |
+
+---
+
+## 🚀 Deploying on Render
+
+This repository is ready for a two-service Render deployment:
+
+1. Create a Render Blueprint using [render.yaml](render.yaml).
+2. Provide `MONGO_URL` as a Render secret for the backend web service.
+3. Keep `DB_NAME` as `naqaab` unless you want a different database name.
+4. The backend service starts with `uvicorn server:app --host 0.0.0.0 --port $PORT`.
+5. The frontend is deployed as a static site from `frontend/build` after `npm install && npm run build`.
+6. Set `REACT_APP_API_URL` on the frontend to your backend URL, and keep `CORS_ORIGINS` on the backend set to your deployed frontend URL.
+
+The backend exposes a health check at `/`, and the API is mounted under `/api`.
 
 ---
 

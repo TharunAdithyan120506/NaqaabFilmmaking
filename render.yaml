@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: filmmaking-backend
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: MONGO_URL
+        sync: false
+      - key: DB_NAME
+        value: naqaab
+      - key: CORS_ORIGINS
+        value: https://filmmaking.onrender.com
+
+  - type: web
+    name: filmmaking
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install --legacy-peer-deps && npm run build
+    staticPublishPath: build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://filmmaking-backend.onrender.com
