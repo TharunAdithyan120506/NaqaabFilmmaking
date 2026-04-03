@@ -12,7 +12,6 @@ export default function LoginModal({ isOpen, onClose, onLogin }) {
     e.preventDefault();
     setError("");
 
-    // Check demo credentials
     const match = Object.values(DEMO_CREDENTIALS).find(
       (cred) => cred.id === memberId && cred.password === password
     );
@@ -30,7 +29,7 @@ export default function LoginModal({ isOpen, onClose, onLogin }) {
         <>
           <motion.div
             className="fixed inset-0 z-[150]"
-            style={{ background: "rgba(0,0,0,0.7)" }}
+            style={{ background: "rgba(0,0,0,0.8)", backdropFilter: "blur(4px)" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -49,13 +48,13 @@ export default function LoginModal({ isOpen, onClose, onLogin }) {
               style={{ background: "var(--black)", border: "1px solid var(--deep-grey)" }}
             >
               <div className="flex items-center justify-between mb-8">
-                <h2 className="font-display text-2xl tracking-[0.1em]" style={{ color: "var(--gold)" }}>
+                <h2 className="font-display text-2xl tracking-[0.1em]" style={{ color: "var(--white)" }}>
                   MEMBER LOGIN
                 </h2>
                 <button
                   data-testid="close-login-modal"
                   onClick={onClose}
-                  className="text-[var(--dim-white)] hover:text-[var(--white)] transition-colors"
+                  className="text-[var(--dim-white)] hover:text-[var(--white)] transition-colors duration-300"
                 >
                   <X size={24} />
                 </button>
@@ -73,7 +72,7 @@ export default function LoginModal({ isOpen, onClose, onLogin }) {
                     onChange={(e) => setMemberId(e.target.value)}
                     placeholder="e.g. NAQ-2025-001"
                     required
-                    className="w-full p-3 font-body text-sm bg-transparent outline-none transition-colors focus:border-[var(--gold)]"
+                    className="w-full p-3 font-body text-sm bg-transparent outline-none transition-all duration-300 focus:border-[var(--white)]"
                     style={{ border: "1px solid var(--deep-grey)", color: "var(--white)" }}
                   />
                 </div>
@@ -88,7 +87,7 @@ export default function LoginModal({ isOpen, onClose, onLogin }) {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full p-3 font-body text-sm bg-transparent outline-none transition-colors focus:border-[var(--gold)]"
+                    className="w-full p-3 font-body text-sm bg-transparent outline-none transition-all duration-300 focus:border-[var(--white)]"
                     style={{ border: "1px solid var(--deep-grey)", color: "var(--white)" }}
                   />
                 </div>
@@ -106,8 +105,18 @@ export default function LoginModal({ isOpen, onClose, onLogin }) {
                 <button
                   data-testid="login-submit-btn"
                   type="submit"
-                  className="w-full font-meta text-xs tracking-[0.2em] uppercase py-4 transition-all duration-300 hover:bg-[var(--white)] hover:text-[var(--black)]"
-                  style={{ background: "var(--gold)", color: "var(--black)" }}
+                  className="w-full font-meta text-xs tracking-[0.2em] uppercase py-4 transition-all duration-500"
+                  style={{ background: "var(--white)", color: "var(--black)" }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = "var(--black)";
+                    e.target.style.color = "var(--white)";
+                    e.target.style.boxShadow = "inset 0 0 0 1px var(--white)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = "var(--white)";
+                    e.target.style.color = "var(--black)";
+                    e.target.style.boxShadow = "none";
+                  }}
                 >
                   LOGIN
                 </button>

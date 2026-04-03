@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function CinematicIntro({ onComplete, onSkip }) {
-  const [phase, setPhase] = useState(0); // 0=counter, 1=logo, 2=text, 3=subtitle, 4=wipe, 5=done
+  const [phase, setPhase] = useState(0);
   const [counter, setCounter] = useState(1);
   const [typedText, setTypedText] = useState("");
   const [showSkip, setShowSkip] = useState(false);
@@ -83,10 +83,10 @@ export default function CinematicIntro({ onComplete, onSkip }) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
         >
-          {/* Film counter */}
+          {/* Film counter — pure white */}
           {phase === 0 && (
             <motion.div
-              className="font-display text-[var(--dim-white)] text-8xl tracking-widest"
+              className="font-display text-[var(--white)] text-8xl tracking-widest"
               key="counter"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -106,6 +106,7 @@ export default function CinematicIntro({ onComplete, onSkip }) {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
+                style={{ filter: "drop-shadow(0 0 20px rgba(255,255,255,0.1))" }}
               />
 
               {phase >= 2 && (
@@ -126,7 +127,7 @@ export default function CinematicIntro({ onComplete, onSkip }) {
                     <span
                       className="inline-block w-[2px] h-[1em] ml-1 align-middle"
                       style={{
-                        background: "var(--gold)",
+                        background: "var(--white)",
                         animation: "blink-cursor 0.8s infinite",
                       }}
                     />
@@ -147,7 +148,7 @@ export default function CinematicIntro({ onComplete, onSkip }) {
             </div>
           )}
 
-          {/* Scanline wipe */}
+          {/* Scanline wipe — white gradient */}
           {phase === 4 && (
             <motion.div
               className="absolute inset-0"
@@ -155,7 +156,7 @@ export default function CinematicIntro({ onComplete, onSkip }) {
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
               style={{
-                background: "linear-gradient(90deg, transparent, var(--gold), transparent)",
+                background: "linear-gradient(90deg, transparent, var(--white), transparent)",
                 transformOrigin: "left",
                 height: "2px",
                 top: "50%",
@@ -168,7 +169,7 @@ export default function CinematicIntro({ onComplete, onSkip }) {
             <button
               data-testid="skip-intro-btn"
               onClick={onSkip}
-              className="absolute top-6 right-6 font-meta text-xs tracking-[0.2em] text-[var(--dim-white)] hover:text-[var(--gold)] transition-colors uppercase border border-[var(--deep-grey)] px-4 py-2"
+              className="absolute top-6 right-6 font-meta text-xs tracking-[0.2em] text-[var(--dim-white)] hover:text-[var(--white)] transition-colors duration-300 uppercase border border-[var(--deep-grey)] px-4 py-2 hover:border-[rgba(245,240,235,0.3)]"
             >
               SKIP
             </button>

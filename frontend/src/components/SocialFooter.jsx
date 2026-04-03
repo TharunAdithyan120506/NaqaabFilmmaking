@@ -8,9 +8,12 @@ export default function SocialFooter() {
       className="relative py-24 md:py-32"
       style={{ background: "var(--black)" }}
     >
+      {/* Section divider */}
+      <div className="section-divider absolute top-0 left-0 right-0" />
+
       {/* Film reel background pattern */}
       <div
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute inset-0 opacity-[0.015]"
         style={{
           backgroundImage: `
             repeating-linear-gradient(0deg, transparent, transparent 18px, var(--white) 18px, var(--white) 20px),
@@ -23,7 +26,7 @@ export default function SocialFooter() {
       <div className="max-w-[1400px] mx-auto px-6 md:px-10">
         <ScrollReveal>
           <p
-            className="font-display text-sm tracking-[0.4em] uppercase mb-3 text-center"
+            className="font-meta text-[10px] tracking-[0.4em] uppercase mb-3 text-center"
             style={{ color: "var(--dim-white)" }}
           >
             ROLL CREDITS
@@ -50,10 +53,10 @@ export default function SocialFooter() {
               >
                 <Instagram
                   size={48}
-                  className="transition-all duration-300 group-hover:drop-shadow-[0_0_12px_var(--teal)]"
+                  className="transition-all duration-500 group-hover:drop-shadow-[0_0_12px_rgba(245,240,235,0.3)]"
                   style={{ color: "var(--dim-white)" }}
                 />
-                <p className="font-display text-lg tracking-[0.1em] group-hover:text-[var(--teal)] transition-colors" style={{ color: "var(--white)" }}>
+                <p className="font-display text-lg tracking-[0.1em] group-hover:text-[var(--white)] transition-colors duration-300" style={{ color: "var(--dim-white)" }}>
                   @naqaabfilms
                 </p>
                 <p className="font-body text-xs" style={{ color: "var(--dim-white)" }}>
@@ -75,10 +78,10 @@ export default function SocialFooter() {
               >
                 <Film
                   size={48}
-                  className="transition-all duration-300 group-hover:drop-shadow-[0_0_12px_var(--teal)]"
+                  className="transition-all duration-500 group-hover:drop-shadow-[0_0_12px_rgba(245,240,235,0.3)]"
                   style={{ color: "var(--dim-white)" }}
                 />
-                <p className="font-display text-lg tracking-[0.1em] group-hover:text-[var(--teal)] transition-colors" style={{ color: "var(--white)" }}>
+                <p className="font-display text-lg tracking-[0.1em] group-hover:text-[var(--white)] transition-colors duration-300" style={{ color: "var(--dim-white)" }}>
                   @naqaabpicks
                 </p>
                 <p className="font-body text-xs" style={{ color: "var(--dim-white)" }}>
@@ -92,29 +95,29 @@ export default function SocialFooter() {
           <ScrollReveal delay={200}>
             <div className="text-center space-y-4">
               <div className="flex items-center justify-center gap-3">
-                <Mail size={16} style={{ color: "var(--gold)" }} />
+                <Mail size={16} style={{ color: "var(--dim-white)" }} />
                 <a
                   href="mailto:naqaabfilms.mit@manipal.edu"
                   data-testid="email-link"
-                  className="font-body text-xs hover:text-[var(--gold)] transition-colors"
+                  className="font-body text-xs hover:text-[var(--white)] transition-colors duration-300"
                   style={{ color: "var(--dim-white)" }}
                 >
                   naqaabfilms.mit@manipal.edu
                 </a>
               </div>
               <div className="flex items-center justify-center gap-3">
-                <Phone size={16} style={{ color: "var(--gold)" }} />
+                <Phone size={16} style={{ color: "var(--dim-white)" }} />
                 <a
                   href="tel:+918274076737"
                   data-testid="phone-link"
-                  className="font-body text-xs hover:text-[var(--gold)] transition-colors"
+                  className="font-body text-xs hover:text-[var(--white)] transition-colors duration-300"
                   style={{ color: "var(--dim-white)" }}
                 >
                   +91 82740 76737
                 </a>
               </div>
               <div className="flex items-center justify-center gap-3">
-                <MapPin size={16} style={{ color: "var(--gold)" }} />
+                <MapPin size={16} style={{ color: "var(--dim-white)" }} />
                 <p className="font-body text-xs" style={{ color: "var(--dim-white)" }}>
                   MIT Manipal, Manipal — 576104
                 </p>
@@ -134,20 +137,20 @@ export default function SocialFooter() {
           <p className="font-meta text-[10px] tracking-[0.1em]" style={{ color: "var(--dim-white)" }}>
             &copy; {new Date().getFullYear()} naqaab FILMMAKING &middot; Manipal Institute of Technology
           </p>
-          <p className="font-meta text-[10px] tracking-[0.1em]" style={{ color: "var(--dim-white)", opacity: 0.5 }}>
+          <p className="font-meta text-[10px] tracking-[0.1em]" style={{ color: "var(--dim-white)", opacity: 0.4 }}>
             Made with film by Naqaab
           </p>
         </div>
       </div>
 
-      {/* "ROLL CAMERA" floating badge */}
+      {/* "ROLL CAMERA" floating badge — white border */}
       <button
         data-testid="roll-camera-btn"
         onClick={() => document.getElementById("films")?.scrollIntoView({ behavior: "smooth" })}
-        className="fixed bottom-8 right-8 z-[80] flex items-center gap-2 px-4 py-2 transition-all duration-300 hover:bg-[var(--gold)] hover:text-[var(--black)] group"
+        className="fixed bottom-8 right-8 z-[80] flex items-center gap-2 px-4 py-2 transition-all duration-500 hover:bg-[var(--white)] hover:text-[var(--black)] group"
         style={{
           background: "rgba(5,5,5,0.9)",
-          border: "1px solid var(--deep-grey)",
+          border: "1px solid rgba(245,240,235,0.15)",
           color: "var(--dim-white)",
           backdropFilter: "blur(8px)",
         }}

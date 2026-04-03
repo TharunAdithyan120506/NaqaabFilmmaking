@@ -16,11 +16,14 @@ export default function FilmsRail() {
       className="relative py-24 md:py-32 overflow-hidden"
       style={{ background: "var(--black)" }}
     >
+      {/* Section divider top */}
+      <div className="section-divider absolute top-0 left-0 right-0" />
+
       <div className="px-6 md:px-10 mb-10">
         <ScrollReveal>
           <p
-            className="font-display text-sm tracking-[0.4em] uppercase mb-3"
-            style={{ color: "var(--teal)" }}
+            className="font-meta text-[10px] tracking-[0.4em] uppercase mb-3"
+            style={{ color: "var(--dim-white)" }}
           >
             NOW SHOWING
           </p>
@@ -35,7 +38,7 @@ export default function FilmsRail() {
               <button
                 data-testid="films-prev-btn"
                 onClick={() => swiperRef.current?.slidePrev()}
-                className="w-10 h-10 flex items-center justify-center border transition-all hover:bg-[var(--gold)] hover:text-[var(--black)] hover:border-[var(--gold)]"
+                className="w-10 h-10 flex items-center justify-center border transition-all duration-300 hover:bg-[var(--white)] hover:text-[var(--black)] hover:border-[var(--white)]"
                 style={{ borderColor: "var(--ash)", color: "var(--dim-white)" }}
               >
                 <ChevronLeft size={18} />
@@ -43,7 +46,7 @@ export default function FilmsRail() {
               <button
                 data-testid="films-next-btn"
                 onClick={() => swiperRef.current?.slideNext()}
-                className="w-10 h-10 flex items-center justify-center border transition-all hover:bg-[var(--gold)] hover:text-[var(--black)] hover:border-[var(--gold)]"
+                className="w-10 h-10 flex items-center justify-center border transition-all duration-300 hover:bg-[var(--white)] hover:text-[var(--black)] hover:border-[var(--white)]"
                 style={{ borderColor: "var(--ash)", color: "var(--dim-white)" }}
               >
                 <ChevronRight size={18} />
@@ -78,28 +81,28 @@ function FilmCard({ film }) {
   return (
     <div
       data-testid={`film-card-${film.id}`}
-      className="group relative h-[480px] flex flex-col justify-end overflow-hidden transition-all duration-300 hover:-translate-y-3"
+      className="group relative h-[480px] flex flex-col justify-end overflow-hidden transition-all duration-500 hover:-translate-y-3"
       style={{
         background: "var(--off-black)",
         border: "1px solid var(--deep-grey)",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = film.color;
-        e.currentTarget.style.boxShadow = `0 0 30px ${film.color}20, inset 0 0 30px ${film.color}08`;
+        e.currentTarget.style.borderColor = "rgba(245,240,235,0.25)";
+        e.currentTarget.style.boxShadow = "0 0 40px rgba(245,240,235,0.04), inset 0 0 40px rgba(245,240,235,0.02)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = "var(--deep-grey)";
         e.currentTarget.style.boxShadow = "none";
       }}
     >
-      {/* Poster area with gradient atmosphere */}
+      {/* Poster area with monochrome gradient atmosphere */}
       <div className="absolute inset-0 z-0">
         <div
           className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(ellipse at 30% 20%, ${film.color}15 0%, transparent 60%),
-              radial-gradient(ellipse at 70% 80%, ${film.color}10 0%, transparent 50%),
+              radial-gradient(ellipse at 30% 20%, rgba(245,240,235,0.04) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 80%, rgba(245,240,235,0.02) 0%, transparent 50%),
               linear-gradient(180deg, transparent 0%, var(--off-black) 70%)
             `,
           }}
@@ -116,7 +119,7 @@ function FilmCard({ film }) {
         </h3>
         <span
           className="font-meta text-[10px] tracking-[0.2em] uppercase px-2 py-1 inline-block"
-          style={{ background: `${film.color}20`, color: film.color }}
+          style={{ background: "rgba(245,240,235,0.08)", color: "var(--dim-white)" }}
         >
           {film.genre}
         </span>
@@ -126,14 +129,14 @@ function FilmCard({ film }) {
       <div className="relative z-[2] p-5 pt-0">
         <div
           className="mb-4 pb-4"
-          style={{ borderTop: `1px solid var(--deep-grey)` }}
+          style={{ borderTop: "1px solid var(--deep-grey)" }}
         >
           <div className="flex justify-between items-center mt-4">
             <div>
               <p className="font-meta text-[9px] tracking-[0.15em] uppercase" style={{ color: "var(--dim-white)" }}>
                 STATUS
               </p>
-              <p className="font-meta text-xs" style={{ color: film.color }}>
+              <p className="font-meta text-xs" style={{ color: "var(--white)" }}>
                 {film.status}
               </p>
             </div>
@@ -159,8 +162,8 @@ function FilmCard({ film }) {
           className="overflow-hidden transition-all duration-300 max-h-0 group-hover:max-h-12"
         >
           <button
-            className="font-meta text-[10px] tracking-[0.2em] uppercase flex items-center gap-2 transition-colors hover:text-[var(--gold)]"
-            style={{ color: film.color }}
+            className="font-meta text-[10px] tracking-[0.2em] uppercase flex items-center gap-2 transition-colors hover:text-[var(--white)]"
+            style={{ color: "var(--dim-white)" }}
           >
             &#9654; LEARN MORE
           </button>

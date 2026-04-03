@@ -10,19 +10,13 @@ export default function TeamSection() {
       className="relative py-24 md:py-32"
       style={{ background: "var(--black)" }}
     >
-      {/* Diagonal top */}
-      <div
-        className="absolute top-0 left-0 right-0 h-16"
-        style={{
-          background: "var(--off-black)",
-          clipPath: "polygon(0 0, 100% 0, 100% 0%, 0 100%)",
-        }}
-      />
+      {/* Section divider */}
+      <div className="section-divider absolute top-0 left-0 right-0" />
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-10">
         <ScrollReveal>
           <p
-            className="font-display text-sm tracking-[0.4em] uppercase mb-3"
+            className="font-meta text-[10px] tracking-[0.4em] uppercase mb-3"
             style={{ color: "var(--dim-white)" }}
           >
             MEET THE CREW
@@ -55,7 +49,7 @@ export default function TeamSection() {
         {/* Creative & Production */}
         <div className="relative mb-20">
           <ScrollReveal>
-            <h3 className="font-display text-xl tracking-[0.2em] mb-8" style={{ color: "var(--gold)" }}>
+            <h3 className="font-display text-xl tracking-[0.2em] mb-8" style={{ color: "var(--white)" }}>
               CREATIVE & PRODUCTION
             </h3>
           </ScrollReveal>
@@ -77,7 +71,7 @@ export default function TeamSection() {
         {/* Management & Operations */}
         <div className="relative mb-20">
           <ScrollReveal>
-            <h3 className="font-display text-xl tracking-[0.2em] mb-8" style={{ color: "var(--gold)" }}>
+            <h3 className="font-display text-xl tracking-[0.2em] mb-8" style={{ color: "var(--white)" }}>
               MANAGEMENT & OPERATIONS
             </h3>
           </ScrollReveal>
@@ -101,13 +95,13 @@ export default function TeamSection() {
           <div
             className="max-w-md mx-auto text-center p-8"
             style={{
-              border: "1px solid var(--gold)",
+              border: "1px solid rgba(245,240,235,0.2)",
               background: "var(--off-black)",
             }}
           >
             <p
-              className="font-display text-sm tracking-[0.3em] uppercase mb-4"
-              style={{ color: "var(--gold)" }}
+              className="font-meta text-[10px] tracking-[0.3em] uppercase mb-4"
+              style={{ color: "var(--dim-white)" }}
             >
               FACULTY ADVISOR
             </p>
@@ -152,7 +146,7 @@ function TeamCard({ member }) {
     <div
       ref={cardRef}
       data-testid={`team-card-${member.name.replace(/\s+/g, "-").toLowerCase()}`}
-      className="group p-5 transition-all duration-300"
+      className="group p-5 transition-all duration-500"
       style={{
         background: "var(--off-black)",
         border: "1px solid var(--deep-grey)",
@@ -160,6 +154,14 @@ function TeamCard({ member }) {
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = "rgba(245,240,235,0.15)";
+        e.currentTarget.style.boxShadow = "0 0 30px rgba(245,240,235,0.03)";
+      }}
+      onMouseOut={(e) => {
+        e.currentTarget.style.borderColor = "var(--deep-grey)";
+        e.currentTarget.style.boxShadow = "none";
+      }}
     >
       {/* Avatar placeholder */}
       <div
@@ -178,9 +180,9 @@ function TeamCard({ member }) {
         />
       </div>
 
-      {/* Role tag */}
+      {/* Role tag — white */}
       <div className="flex items-center gap-2 mb-2">
-        <p className="font-display text-sm tracking-[0.15em]" style={{ color: "var(--gold)" }}>
+        <p className="font-display text-sm tracking-[0.15em]" style={{ color: "var(--white)" }}>
           {member.role.toUpperCase()}
         </p>
         <span className="font-meta text-[8px] tracking-[0.1em] px-1.5 py-0.5" style={{ color: "var(--dim-white)", background: "var(--deep-grey)" }}>
@@ -190,8 +192,8 @@ function TeamCard({ member }) {
 
       {/* Name */}
       <p
-        className="font-serif text-lg mb-3 transition-colors group-hover:text-[var(--gold)]"
-        style={{ color: "var(--white)" }}
+        className="font-serif text-lg mb-3 transition-colors duration-300 group-hover:text-[var(--white)]"
+        style={{ color: "var(--dim-white)" }}
       >
         {member.name}
       </p>

@@ -2,7 +2,6 @@ import { NAQAAB_PICKS } from "@/data";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export default function NaqaabPicks() {
-  // Duplicate for seamless scroll
   const allPicks = [...NAQAAB_PICKS, ...NAQAAB_PICKS];
 
   return (
@@ -11,9 +10,12 @@ export default function NaqaabPicks() {
       className="relative py-24 md:py-32 overflow-hidden"
       style={{ background: "var(--off-black)" }}
     >
+      {/* Section divider */}
+      <div className="section-divider absolute top-0 left-0 right-0" />
+
       {/* Subtle film strip background */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.02]"
         style={{
           backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 40px, var(--dim-white) 40px, var(--dim-white) 42px)`,
           backgroundSize: "60px 100%",
@@ -24,16 +26,16 @@ export default function NaqaabPicks() {
         <ScrollReveal>
           <div className="flex items-center gap-3 mb-3">
             {/* 3D glasses icon */}
-            <svg width="28" height="16" viewBox="0 0 28 16" fill="none" className="opacity-70">
-              <rect x="1" y="4" width="10" height="8" rx="1" stroke="var(--teal)" strokeWidth="1.5" fill="none" />
-              <rect x="17" y="4" width="10" height="8" rx="1" stroke="var(--crimson)" strokeWidth="1.5" fill="none" />
+            <svg width="28" height="16" viewBox="0 0 28 16" fill="none" className="opacity-60">
+              <rect x="1" y="4" width="10" height="8" rx="1" stroke="var(--white)" strokeWidth="1.5" fill="none" />
+              <rect x="17" y="4" width="10" height="8" rx="1" stroke="var(--dim-white)" strokeWidth="1.5" fill="none" />
               <path d="M11 8H17" stroke="var(--dim-white)" strokeWidth="1.5" />
               <path d="M1 8H0" stroke="var(--dim-white)" strokeWidth="1.5" />
               <path d="M28 8H27" stroke="var(--dim-white)" strokeWidth="1.5" />
             </svg>
             <p
-              className="font-display text-sm tracking-[0.4em] uppercase"
-              style={{ color: "var(--teal)" }}
+              className="font-meta text-[10px] tracking-[0.4em] uppercase"
+              style={{ color: "var(--dim-white)" }}
             >
               NAQAAB PICKS
             </p>
@@ -69,14 +71,14 @@ function PickCard({ pick }) {
       target="_blank"
       rel="noopener noreferrer"
       data-testid={`pick-card-${pick.film.replace(/\s+/g, "-").toLowerCase()}`}
-      className="group flex-shrink-0 w-[280px] h-[360px] relative flex flex-col justify-end p-5 overflow-hidden transition-all duration-300 hover:-translate-y-2"
+      className="group flex-shrink-0 w-[280px] h-[360px] relative flex flex-col justify-end p-5 overflow-hidden transition-all duration-500 hover:-translate-y-2"
       style={{
         background: "var(--black)",
         border: "1px solid var(--deep-grey)",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "var(--gold)";
-        e.currentTarget.style.boxShadow = "0 0 25px rgba(201,168,76,0.1)";
+        e.currentTarget.style.borderColor = "rgba(245,240,235,0.25)";
+        e.currentTarget.style.boxShadow = "0 0 30px rgba(245,240,235,0.05)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = "var(--deep-grey)";
@@ -88,16 +90,16 @@ function PickCard({ pick }) {
         className="absolute inset-0"
         style={{
           background: `
-            radial-gradient(ellipse at 50% 30%, rgba(201,168,76,0.06) 0%, transparent 70%),
+            radial-gradient(ellipse at 50% 30%, rgba(245,240,235,0.04) 0%, transparent 70%),
             linear-gradient(180deg, transparent 40%, var(--black) 100%)
           `,
         }}
       />
 
-      {/* Date badge */}
+      {/* Date badge — dark transparent */}
       <div
         className="absolute top-4 right-4 font-meta text-[9px] tracking-[0.15em] uppercase px-2 py-1 z-[2]"
-        style={{ background: "var(--gold)", color: "var(--black)" }}
+        style={{ background: "rgba(245,240,235,0.1)", color: "var(--dim-white)" }}
       >
         {pick.date}
       </div>
@@ -112,7 +114,7 @@ function PickCard({ pick }) {
         </h3>
 
         <p
-          className="font-meta text-[10px] tracking-[0.15em] uppercase transition-colors group-hover:text-[var(--gold)]"
+          className="font-meta text-[10px] tracking-[0.15em] uppercase transition-colors duration-300 group-hover:text-[var(--white)]"
           style={{ color: "var(--dim-white)" }}
         >
           READ REVIEW &rarr;

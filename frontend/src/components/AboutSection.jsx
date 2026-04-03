@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export default function AboutSection() {
@@ -8,20 +9,30 @@ export default function AboutSection() {
     "20 MINUTES",
   ];
 
+  const stripRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (stripRef.current) {
+        const rect = stripRef.current.getBoundingClientRect();
+        const viewportH = window.innerHeight;
+        const progress = (viewportH - rect.top) / (viewportH + rect.height);
+        const offset = (progress - 0.5) * 40;
+        stripRef.current.style.transform = `translateY(${offset}px)`;
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div
       data-testid="about-section"
       className="relative py-24 md:py-32"
       style={{ background: "var(--off-black)" }}
     >
-      {/* Diagonal top break */}
-      <div
-        className="absolute top-0 left-0 right-0 h-16"
-        style={{
-          background: "var(--black)",
-          clipPath: "polygon(0 0, 100% 0, 100% 0%, 0 100%)",
-        }}
-      />
+      {/* Section divider */}
+      <div className="section-divider absolute top-0 left-0 right-0" />
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
@@ -30,7 +41,7 @@ export default function AboutSection() {
             <div>
               <p
                 className="font-serif italic text-base md:text-lg mb-6"
-                style={{ color: "var(--gold)" }}
+                style={{ color: "var(--dim-white)" }}
               >
                 "It began with a late-night conversation."
               </p>
@@ -62,13 +73,13 @@ export default function AboutSection() {
                 </p>
               </div>
 
-              {/* Gold rule */}
+              {/* White rule */}
               <div
-                className="w-16 h-[2px] mb-10"
-                style={{ background: "var(--gold)" }}
+                className="w-16 h-[1px] mb-10"
+                style={{ background: "rgba(245,240,235,0.3)" }}
               />
 
-              {/* Stats */}
+              {/* Stats — white numbers */}
               <div className="grid grid-cols-3 gap-8">
                 {[
                   { number: "200+", label: "MEMBERS" },
@@ -78,7 +89,7 @@ export default function AboutSection() {
                   <div key={stat.label}>
                     <p
                       className="font-display text-3xl md:text-4xl mb-1"
-                      style={{ color: "var(--gold)" }}
+                      style={{ color: "var(--white)" }}
                     >
                       {stat.number}
                     </p>
@@ -94,9 +105,9 @@ export default function AboutSection() {
             </div>
           </ScrollReveal>
 
-          {/* Right: Film strip */}
+          {/* Right: Film strip with parallax */}
           <ScrollReveal delay={200}>
-            <div className="relative">
+            <div className="relative" ref={stripRef} style={{ willChange: "transform" }}>
               <div
                 className="relative overflow-hidden mx-auto"
                 style={{ maxWidth: "320px" }}
@@ -109,7 +120,7 @@ export default function AboutSection() {
                       className="w-3 h-3 mx-auto"
                       style={{
                         background: "var(--black)",
-                        border: "1px solid var(--ash)",
+                        border: "1px solid rgba(245,240,235,0.12)",
                         borderRadius: "1px",
                       }}
                     />
@@ -122,7 +133,7 @@ export default function AboutSection() {
                       className="w-3 h-3 mx-auto"
                       style={{
                         background: "var(--black)",
-                        border: "1px solid var(--ash)",
+                        border: "1px solid rgba(245,240,235,0.12)",
                         borderRadius: "1px",
                       }}
                     />
@@ -138,18 +149,17 @@ export default function AboutSection() {
                       style={{
                         background: "var(--black)",
                         border: "1px solid var(--deep-grey)",
-                        filter: "sepia(0.3)",
                       }}
                     >
                       <div
                         className="absolute inset-0"
                         style={{
-                          background: `radial-gradient(ellipse at ${30 + i * 15}% ${40 + i * 10}%, rgba(201,168,76,0.08) 0%, transparent 60%)`,
+                          background: `radial-gradient(ellipse at ${30 + i * 15}% ${40 + i * 10}%, rgba(245,240,235,0.04) 0%, transparent 60%)`,
                         }}
                       />
                       <p
                         className="font-display text-2xl tracking-[0.15em] relative z-[1]"
-                        style={{ color: "var(--white)", opacity: 0.6 }}
+                        style={{ color: "var(--white)", opacity: 0.5 }}
                       >
                         {title}
                       </p>

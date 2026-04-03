@@ -18,9 +18,12 @@ function PortalCTA({ onJoinClick, onLoginClick }) {
       className="py-24 md:py-32"
       style={{ background: "var(--off-black)" }}
     >
+      {/* Section divider */}
+      <div className="section-divider absolute left-0 right-0" style={{ top: 0 }} />
+
       <div className="max-w-3xl mx-auto px-6 md:px-10 text-center">
         <ScrollReveal>
-          <p className="font-display text-lg tracking-[0.2em] mb-4" style={{ color: "var(--gold)" }}>
+          <p className="font-display text-lg tracking-[0.2em] mb-4" style={{ color: "var(--white)" }}>
             WANT TO BE PART OF NAQAAB?
           </p>
           <p className="font-serif italic text-base md:text-lg mb-6" style={{ color: "var(--dim-white)" }}>
@@ -34,16 +37,32 @@ function PortalCTA({ onJoinClick, onLoginClick }) {
             <button
               data-testid="submit-interest-btn"
               onClick={onJoinClick}
-              className="font-meta text-xs tracking-[0.2em] uppercase px-8 py-3 transition-all duration-300 hover:bg-[var(--white)] hover:text-[var(--black)]"
-              style={{ background: "var(--gold)", color: "var(--black)" }}
+              className="font-meta text-[10px] tracking-[0.2em] uppercase px-8 py-3 transition-all duration-500"
+              style={{ background: "var(--white)", color: "var(--black)" }}
+              onMouseEnter={(e) => {
+                e.target.style.boxShadow = "0 0 30px rgba(245,240,235,0.15)";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.boxShadow = "none";
+              }}
             >
               SUBMIT YOUR INTEREST &rarr;
             </button>
             <button
               data-testid="portal-login-btn"
               onClick={onLoginClick}
-              className="font-meta text-xs tracking-[0.2em] uppercase px-8 py-3 transition-all duration-300 hover:bg-[var(--gold)] hover:text-[var(--black)]"
-              style={{ border: "1px solid var(--gold)", color: "var(--gold)", background: "transparent" }}
+              className="shimmer-btn font-meta text-[10px] tracking-[0.2em] uppercase px-8 py-3 transition-all duration-500"
+              style={{ border: "1px solid rgba(245,240,235,0.3)", color: "var(--white)", background: "transparent" }}
+              onMouseEnter={(e) => {
+                e.target.style.background = "var(--white)";
+                e.target.style.color = "var(--black)";
+                e.target.style.borderColor = "var(--white)";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = "transparent";
+                e.target.style.color = "var(--white)";
+                e.target.style.borderColor = "rgba(245,240,235,0.3)";
+              }}
             >
               MEMBER LOGIN
             </button>
@@ -107,7 +126,7 @@ function PortalDashboard({ user, onLogout }) {
       <div className="max-w-[1400px] mx-auto px-6 md:px-10">
         <div className="flex items-center justify-between mb-10">
           <div>
-            <p className="font-display text-sm tracking-[0.4em] uppercase mb-2" style={{ color: "var(--teal)" }}>
+            <p className="font-meta text-[10px] tracking-[0.4em] uppercase mb-2" style={{ color: "var(--dim-white)" }}>
               THE SCREENING ROOM
             </p>
             <h2 className="font-display text-3xl md:text-4xl" style={{ color: "var(--white)" }}>
@@ -117,14 +136,14 @@ function PortalDashboard({ user, onLogout }) {
           <button
             data-testid="portal-logout-btn"
             onClick={onLogout}
-            className="font-meta text-xs tracking-[0.15em] uppercase px-5 py-2 transition-all hover:bg-[var(--gold)] hover:text-[var(--black)]"
-            style={{ color: "var(--gold)", border: "1px solid var(--gold)" }}
+            className="font-meta text-[10px] tracking-[0.15em] uppercase px-5 py-2 transition-all duration-500 hover:bg-[var(--white)] hover:text-[var(--black)]"
+            style={{ color: "var(--white)", border: "1px solid rgba(245,240,235,0.3)" }}
           >
             LOGOUT
           </button>
         </div>
 
-        {/* Tabs */}
+        {/* Tabs — white indicator */}
         <div className="flex flex-wrap gap-4 md:gap-8 mb-10" style={{ borderBottom: "1px solid var(--deep-grey)" }}>
           {tabs.map((tab) => {
             const Icon = tab.icon;
@@ -133,14 +152,14 @@ function PortalDashboard({ user, onLogout }) {
                 key={tab.id}
                 data-testid={`portal-tab-${tab.id}`}
                 onClick={() => setActiveTab(tab.id)}
-                className="flex items-center gap-2 font-meta text-[10px] md:text-xs tracking-[0.15em] uppercase pb-3 transition-all relative"
-                style={{ color: activeTab === tab.id ? "var(--gold)" : "var(--dim-white)" }}
+                className="flex items-center gap-2 font-meta text-[10px] md:text-xs tracking-[0.15em] uppercase pb-3 transition-all duration-300 relative"
+                style={{ color: activeTab === tab.id ? "var(--white)" : "var(--dim-white)" }}
               >
                 <Icon size={14} />
                 {tab.label}
                 <span
-                  className="absolute bottom-0 left-0 h-[2px] transition-all duration-300"
-                  style={{ width: activeTab === tab.id ? "100%" : "0%", background: "var(--gold)" }}
+                  className="absolute bottom-0 left-0 h-[1px] transition-all duration-500"
+                  style={{ width: activeTab === tab.id ? "100%" : "0%", background: "var(--white)" }}
                 />
               </button>
             );
@@ -153,10 +172,10 @@ function PortalDashboard({ user, onLogout }) {
             {upcomingEvents.map((event) => (
               <div
                 key={event.id}
-                className="p-5"
+                className="p-5 transition-all duration-300 hover:border-[rgba(245,240,235,0.15)]"
                 style={{ background: "var(--black)", border: "1px solid var(--deep-grey)" }}
               >
-                <p className="font-meta text-[10px] tracking-[0.15em] uppercase mb-2" style={{ color: "var(--gold)" }}>
+                <p className="font-meta text-[10px] tracking-[0.15em] uppercase mb-2" style={{ color: "var(--dim-white)" }}>
                   {event.date}
                 </p>
                 <h4 className="font-display text-lg mb-1" style={{ color: "var(--white)" }}>
@@ -170,10 +189,10 @@ function PortalDashboard({ user, onLogout }) {
                 </p>
                 <button
                   onClick={() => toggleRsvp(event.id)}
-                  className="flex items-center gap-2 font-meta text-[10px] tracking-[0.1em] uppercase transition-colors"
-                  style={{ color: rsvps[event.id] ? "var(--gold)" : "var(--dim-white)" }}
+                  className="flex items-center gap-2 font-meta text-[10px] tracking-[0.1em] uppercase transition-colors duration-300"
+                  style={{ color: rsvps[event.id] ? "var(--white)" : "var(--dim-white)" }}
                 >
-                  <Star size={14} fill={rsvps[event.id] ? "var(--gold)" : "none"} />
+                  <Star size={14} fill={rsvps[event.id] ? "var(--white)" : "none"} />
                   {rsvps[event.id] ? "RSVP'D" : "RSVP"}
                 </button>
               </div>
@@ -195,16 +214,16 @@ function PortalDashboard({ user, onLogout }) {
                 <p className="font-meta text-[10px] mb-1" style={{ color: "var(--dim-white)" }}>
                   Facilitator: {ws.facilitator}
                 </p>
-                <p className="font-meta text-[10px] mb-4" style={{ color: "var(--gold)" }}>
+                <p className="font-meta text-[10px] mb-4" style={{ color: "var(--dim-white)" }}>
                   {ws.date}
                 </p>
                 <button
                   onClick={() => toggleRegistration(`ws-${i}`)}
-                  className="font-meta text-[10px] tracking-[0.15em] uppercase px-4 py-2 transition-all"
+                  className="font-meta text-[10px] tracking-[0.15em] uppercase px-4 py-2 transition-all duration-500"
                   style={{
-                    background: registrations[`ws-${i}`] ? "var(--teal)" : "transparent",
-                    color: registrations[`ws-${i}`] ? "var(--black)" : "var(--teal)",
-                    border: "1px solid var(--teal)",
+                    background: registrations[`ws-${i}`] ? "var(--white)" : "transparent",
+                    color: registrations[`ws-${i}`] ? "var(--black)" : "var(--white)",
+                    border: "1px solid rgba(245,240,235,0.3)",
                   }}
                 >
                   {registrations[`ws-${i}`] ? "REGISTERED" : "REGISTER"}
@@ -232,7 +251,7 @@ function PortalDashboard({ user, onLogout }) {
                   </div>
                   <div>
                     <p className="font-meta text-[8px] tracking-[0.1em] uppercase" style={{ color: "var(--dim-white)" }}>DEADLINE</p>
-                    <p className="font-meta text-[10px]" style={{ color: "var(--gold)" }}>{comp.deadline}</p>
+                    <p className="font-meta text-[10px]" style={{ color: "var(--dim-white)" }}>{comp.deadline}</p>
                   </div>
                   <div>
                     <p className="font-meta text-[8px] tracking-[0.1em] uppercase" style={{ color: "var(--dim-white)" }}>TEAM SIZE</p>
@@ -240,7 +259,7 @@ function PortalDashboard({ user, onLogout }) {
                   </div>
                   <div>
                     <p className="font-meta text-[8px] tracking-[0.1em] uppercase" style={{ color: "var(--dim-white)" }}>PRIZE</p>
-                    <p className="font-meta text-[10px]" style={{ color: "var(--teal)" }}>{comp.prize}</p>
+                    <p className="font-meta text-[10px]" style={{ color: "var(--white)" }}>{comp.prize}</p>
                   </div>
                 </div>
               </div>
@@ -276,11 +295,11 @@ function AdminPanel({ boardEvents, setBoardEvents }) {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-10">
         <div className="p-5" style={{ background: "var(--black)", border: "1px solid var(--deep-grey)" }}>
-          <p className="font-display text-3xl" style={{ color: "var(--gold)" }}>200+</p>
+          <p className="font-display text-3xl" style={{ color: "var(--white)" }}>200+</p>
           <p className="font-meta text-[10px] tracking-[0.1em] uppercase" style={{ color: "var(--dim-white)" }}>MEMBERS</p>
         </div>
         <div className="p-5" style={{ background: "var(--black)", border: "1px solid var(--deep-grey)" }}>
-          <p className="font-display text-3xl" style={{ color: "var(--teal)" }}>{submissions.length}</p>
+          <p className="font-display text-3xl" style={{ color: "var(--white)" }}>{submissions.length}</p>
           <p className="font-meta text-[10px] tracking-[0.1em] uppercase" style={{ color: "var(--dim-white)" }}>SUBMISSIONS</p>
         </div>
         <div className="p-5" style={{ background: "var(--black)", border: "1px solid var(--deep-grey)" }}>
@@ -288,7 +307,7 @@ function AdminPanel({ boardEvents, setBoardEvents }) {
           <p className="font-meta text-[10px] tracking-[0.1em] uppercase" style={{ color: "var(--dim-white)" }}>FILMS MADE</p>
         </div>
         <div className="p-5" style={{ background: "var(--black)", border: "1px solid var(--deep-grey)" }}>
-          <p className="font-display text-3xl" style={{ color: "var(--crimson)" }}>3+</p>
+          <p className="font-display text-3xl" style={{ color: "var(--white)" }}>3+</p>
           <p className="font-meta text-[10px] tracking-[0.1em] uppercase" style={{ color: "var(--dim-white)" }}>AWARDS</p>
         </div>
       </div>
@@ -303,7 +322,7 @@ function AdminPanel({ boardEvents, setBoardEvents }) {
             <p className="font-body text-xs mb-2 leading-relaxed" style={{ color: "var(--dim-white)" }}>"{sub.reason}"</p>
             <div className="flex flex-wrap gap-1">
               {sub.interests.map((int) => (
-                <span key={int} className="font-meta text-[8px] px-1.5 py-0.5" style={{ background: "var(--deep-grey)", color: "var(--teal)" }}>
+                <span key={int} className="font-meta text-[8px] px-1.5 py-0.5" style={{ background: "var(--deep-grey)", color: "var(--dim-white)" }}>
                   {int}
                 </span>
               ))}
@@ -324,7 +343,7 @@ function AdminPanel({ boardEvents, setBoardEvents }) {
               data-testid={`admin-event-${field}`}
               value={form[field]}
               onChange={(e) => setForm({ ...form, [field]: e.target.value })}
-              className="w-full p-3 font-body text-sm bg-transparent outline-none transition-colors focus:border-[var(--gold)]"
+              className="w-full p-3 font-body text-sm bg-transparent outline-none transition-all duration-300 focus:border-[var(--white)]"
               style={{ background: "var(--black)", border: "1px solid var(--deep-grey)", color: "var(--white)" }}
               placeholder={field === "date" ? "e.g. Mar 15, 2026" : ""}
             />
@@ -334,8 +353,14 @@ function AdminPanel({ boardEvents, setBoardEvents }) {
       <button
         data-testid="admin-add-event-btn"
         onClick={addEvent}
-        className="flex items-center gap-2 font-meta text-xs tracking-[0.15em] uppercase px-6 py-3 transition-all hover:bg-[var(--white)] hover:text-[var(--black)]"
-        style={{ background: "var(--gold)", color: "var(--black)" }}
+        className="flex items-center gap-2 font-meta text-xs tracking-[0.15em] uppercase px-6 py-3 transition-all duration-500"
+        style={{ background: "var(--white)", color: "var(--black)" }}
+        onMouseEnter={(e) => {
+          e.target.style.boxShadow = "0 0 30px rgba(245,240,235,0.15)";
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.boxShadow = "none";
+        }}
       >
         <PlusCircle size={14} />
         ADD EVENT

@@ -22,11 +22,12 @@
 /* ============ CSS VARIABLES ============ */
 :root {
   --black: #050505;
-  --off-black: #0d0d0d;
-  --deep-grey: #1a1a1a;
-  --ash: #2e2e2e;
+  --off-black: #0a0a0a;
+  --deep-grey: #161616;
+  --ash: #2a2a2a;
   --white: #f5f0eb;
-  --dim-white: #a0998e;
+  --dim-white: #888079;
+  --bright-white: #ffffff;
   --gold: #c9a84c;
   --teal: #1de0cc;
   --crimson: #c0392b;
@@ -42,23 +43,23 @@
 
   --background: 0 0% 2%;
   --foreground: 30 15% 93%;
-  --card: 0 0% 5%;
+  --card: 0 0% 4%;
   --card-foreground: 30 15% 93%;
-  --popover: 0 0% 5%;
+  --popover: 0 0% 4%;
   --popover-foreground: 30 15% 93%;
-  --primary: 43 51% 54%;
+  --primary: 0 0% 96%;
   --primary-foreground: 0 0% 2%;
-  --secondary: 0 0% 10%;
+  --secondary: 0 0% 8%;
   --secondary-foreground: 30 15% 93%;
-  --muted: 0 0% 10%;
-  --muted-foreground: 30 7% 62%;
-  --accent: 171 82% 50%;
+  --muted: 0 0% 8%;
+  --muted-foreground: 30 7% 52%;
+  --accent: 0 0% 96%;
   --accent-foreground: 0 0% 2%;
   --destructive: 4 63% 46%;
   --destructive-foreground: 30 15% 93%;
   --border: 0 0% 10%;
   --input: 0 0% 10%;
-  --ring: 43 51% 54%;
+  --ring: 0 0% 96%;
   --radius: 0rem;
 }
 
@@ -85,39 +86,39 @@ body {
 
 /* ============ CUSTOM SCROLLBAR ============ */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 ::-webkit-scrollbar-track {
   background: var(--black);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--gold);
+  background: rgba(245, 240, 235, 0.3);
   border-radius: 0;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #d4b35a;
+  background: rgba(245, 240, 235, 0.5);
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--gold) var(--black);
+  scrollbar-color: rgba(245,240,235,0.3) var(--black);
 }
 
 /* ============ TEXT SELECTION ============ */
 ::selection {
-  background-color: var(--gold);
+  background-color: var(--white);
   color: var(--black);
 }
 
 ::-moz-selection {
-  background-color: var(--gold);
+  background-color: var(--white);
   color: var(--black);
 }
 
 /* ============ FOCUS STATES ============ */
 *:focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 1px solid var(--white);
   outline-offset: 2px;
 }
 
@@ -136,7 +137,7 @@ body {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.04;
+  opacity: 0.035;
   animation: grain-shift 0.15s steps(1) infinite;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
   background-size: 256px;
@@ -154,7 +155,7 @@ body {
 /* ============ GLITCH TEXT ============ */
 .glitch-text {
   position: relative;
-  animation: glitch-settle 0.6s ease-out forwards;
+  animation: glitch-settle 0.8s ease-out forwards;
 }
 
 .glitch-text::before,
@@ -168,26 +169,28 @@ body {
 }
 
 .glitch-text::before {
-  color: var(--teal);
-  animation: glitch-1 0.4s ease-out forwards;
+  color: rgba(255,255,255,0.6);
+  animation: glitch-1 0.5s ease-out forwards;
   clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
 }
 
 .glitch-text::after {
-  color: var(--crimson);
-  animation: glitch-2 0.4s ease-out forwards;
+  color: rgba(200,200,200,0.4);
+  animation: glitch-2 0.5s ease-out forwards;
   clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
 }
 
 @keyframes glitch-1 {
-  0% { transform: translate(4px, -2px); opacity: 0.8; }
-  50% { transform: translate(-3px, 1px); opacity: 0.6; }
+  0% { transform: translate(6px, -3px); opacity: 0.9; }
+  30% { transform: translate(-4px, 2px); opacity: 0.7; }
+  60% { transform: translate(2px, -1px); opacity: 0.4; }
   100% { transform: translate(0, 0); opacity: 0; }
 }
 
 @keyframes glitch-2 {
-  0% { transform: translate(-4px, 2px); opacity: 0.8; }
-  50% { transform: translate(3px, -1px); opacity: 0.6; }
+  0% { transform: translate(-6px, 3px); opacity: 0.9; }
+  30% { transform: translate(4px, -2px); opacity: 0.7; }
+  60% { transform: translate(-2px, 1px); opacity: 0.4; }
   100% { transform: translate(0, 0); opacity: 0; }
 }
 
@@ -201,7 +204,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.85) 100%);
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.9) 100%);
   pointer-events: none;
   z-index: 1;
 }
@@ -215,8 +218,8 @@ body {
     0deg,
     transparent,
     transparent 2px,
-    rgba(255,255,255,0.02) 2px,
-    rgba(255,255,255,0.02) 4px
+    rgba(255,255,255,0.015) 2px,
+    rgba(255,255,255,0.015) 4px
   );
   pointer-events: none;
   z-index: 2;
@@ -257,8 +260,8 @@ body {
 /* ============ SCROLL REVEAL ============ */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .reveal.revealed {
@@ -266,7 +269,64 @@ body {
   transform: translateY(0);
 }
 
+/* ============ SHIMMER LINE ============ */
+@keyframes shimmer-line {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  transform: translateX(-100%);
+}
+
+.shimmer-btn:hover::after {
+  animation: shimmer-line 0.8s ease-out;
+}
+
+/* ============ PARALLAX FLOAT ============ */
+@keyframes parallax-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-8px) rotate(0.5deg); }
+  66% { transform: translateY(4px) rotate(-0.3deg); }
+}
+
+/* ============ FLOATING PARTICLES ============ */
+@keyframes float-up {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  animation: float-up linear infinite;
+}
+
 /* ============ PULSE ANIMATION ============ */
+@keyframes pulse-white {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 240, 235, 0.3); }
+  50% { box-shadow: 0 0 20px 4px rgba(245, 240, 235, 0.1); }
+}
+
 @keyframes pulse-gold {
   0%, 100% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.4); }
   50% { box-shadow: 0 0 20px 4px rgba(201, 168, 76, 0.2); }
@@ -274,7 +334,7 @@ body {
 
 /* ============ TYPE WRITER ============ */
 @keyframes blink-cursor {
-  0%, 100% { border-color: var(--gold); }
+  0%, 100% { border-color: var(--white); }
   50% { border-color: transparent; }
 }
 
@@ -291,6 +351,38 @@ body {
 }
 .letterbox-top { top: 0; }
 .letterbox-bottom { bottom: 0; }
+
+/* ============ SECTION DIVIDER ============ */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245,240,235,0.15), transparent);
+  position: relative;
+}
+
+.section-divider::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgba(245,240,235,0.2);
+  background: var(--black);
+  rotate: 45deg;
+}
+
+/* ============ SCROLL PROGRESS BAR ============ */
+.scroll-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--white), rgba(245,240,235,0.5));
+  transition: width 50ms linear;
+  z-index: 100;
+}
 
 /* ============ CUSTOM CURSOR ============ */
 @media (min-width: 1024px) {
@@ -320,12 +412,14 @@ body {
   }
   .grain-overlay { display: none; }
   .reveal { opacity: 1; transform: none; }
+  .particle { display: none; }
 }
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 480px) {
   .ticker-wrap { display: none; }
-  .grain-overlay { opacity: 0.025; }
+  .grain-overlay { opacity: 0.02; }
+  .particle { display: none; }
 }
 
 @layer base {

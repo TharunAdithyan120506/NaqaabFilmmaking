@@ -23,10 +23,13 @@ export default function EventsSection() {
       className="relative py-24 md:py-32"
       style={{ background: "var(--black)" }}
     >
+      {/* Section divider */}
+      <div className="section-divider absolute top-0 left-0 right-0" />
+
       <div className="max-w-[1400px] mx-auto px-6 md:px-10">
         <ScrollReveal>
           <p
-            className="font-display text-sm tracking-[0.4em] uppercase mb-3"
+            className="font-meta text-[10px] tracking-[0.4em] uppercase mb-3"
             style={{ color: "var(--dim-white)" }}
           >
             BEHIND THE SCENES
@@ -39,7 +42,7 @@ export default function EventsSection() {
           </h2>
         </ScrollReveal>
 
-        {/* Tabs */}
+        {/* Tabs — white indicator */}
         <div className="flex gap-8 mb-10" style={{ borderBottom: "1px solid var(--deep-grey)" }}>
           {["past", "upcoming"].map((tab) => (
             <button
@@ -48,15 +51,15 @@ export default function EventsSection() {
               onClick={() => setActiveTab(tab)}
               className="font-meta text-xs tracking-[0.2em] uppercase pb-3 transition-all duration-300 relative"
               style={{
-                color: activeTab === tab ? "var(--gold)" : "var(--dim-white)",
+                color: activeTab === tab ? "var(--white)" : "var(--dim-white)",
               }}
             >
               {tab === "past" ? "PAST" : "UPCOMING"}
               <span
-                className="absolute bottom-0 left-0 h-[2px] transition-all duration-300"
+                className="absolute bottom-0 left-0 h-[1px] transition-all duration-500"
                 style={{
                   width: activeTab === tab ? "100%" : "0%",
-                  background: "var(--gold)",
+                  background: "var(--white)",
                 }}
               />
             </button>
@@ -81,10 +84,10 @@ export default function EventsSection() {
                 style={{
                   background: "var(--off-black)",
                   border: "1px solid var(--deep-grey)",
-                  animation: "pulse-gold 3s infinite",
+                  animation: "pulse-white 3s infinite",
                 }}
               >
-                <p className="font-display text-lg mb-2" style={{ color: "var(--gold)" }}>
+                <p className="font-display text-lg mb-2" style={{ color: "var(--white)" }}>
                   COMING SOON
                 </p>
                 <p className="font-meta text-xs" style={{ color: "var(--dim-white)" }}>
@@ -106,7 +109,7 @@ function EventCard({ event }) {
   return (
     <div
       data-testid={`event-card-${event.name.replace(/\s+/g, "-").toLowerCase()}`}
-      className="group p-6 transition-all duration-300 hover:bg-[#141414]"
+      className="group p-6 transition-all duration-500 hover:bg-[#0f0f0f]"
       style={{
         background: "var(--off-black)",
         borderLeft: "0px solid transparent",
@@ -115,7 +118,7 @@ function EventCard({ event }) {
         borderBottom: "1px solid var(--deep-grey)",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderLeft = `3px solid var(--gold)`;
+        e.currentTarget.style.borderLeft = "3px solid var(--white)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderLeft = "0px solid transparent";
@@ -123,7 +126,7 @@ function EventCard({ event }) {
     >
       <p
         className="font-meta text-[10px] tracking-[0.15em] uppercase mb-3"
-        style={{ color: "var(--gold)" }}
+        style={{ color: "var(--dim-white)" }}
       >
         {event.date}
       </p>
