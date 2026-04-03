@@ -1,162 +1,168 @@
-# naqaab FILMMAKING
+# 🎭 Naqaab Filmmaking Club — MIT Manipal
 
-> Official portal for the Naqaab Filmmaking Club — Manipal Institute of Technology.
+> *The Official Website of Naqaab — The Filmmaking Club of Manipal Institute of Technology, EST. 2023*
 
-A full-stack web application featuring a cinematic black-and-white UI with parallax scrolling, film-grain overlays, and a member portal.
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|------------|
-| Frontend | React 18, Tailwind CSS, Framer Motion, Swiper |
-| Backend | FastAPI (Python 3), MongoDB (Motor async driver) |
-| Auth | JWT / bcrypt |
-| Build | CRACO (Create React App + custom Webpack) |
+A cinematic, Hollywood-grade React website with a strict black-and-white brand identity, advanced motion design, and immersive scroll experiences.
 
 ---
 
-## Prerequisites
+## ✨ Features
 
-- **Node.js** ≥ 18
-- **npm** ≥ 9
-- **Python** ≥ 3.10
-- **MongoDB** instance (local or MongoDB Atlas)
+### 🎬 Cinematic Experience
+- **LIGHTS. CAMERA. ACTION.** intro slate sequence with white flash
+- Dynamic Island **dock-style navbar** — collapses to a pill on scroll, expands on hover
+- Smooth **Lenis scroll** integration for buttery page navigation
+- **Framer Motion** scroll-triggered fade-up animations on every section
+
+### 🖼️ Sections
+| Section | Description |
+|---------|-------------|
+| **Hero** | Parallax title with SplitText character animation, film ticker marquee |
+| **Productions** | CardSwap stack of film cards with grayscale-to-color reveal |
+| **Stats** | Animated counters for Films, Members, Departments, Views |
+| **About** | Spotlight mouse-glow effect with BlurText word-reveal animation |
+| **Events** | Past events timeline with scroll-reveal cards |
+| **The Critics' Table** | Horizontal ticker of movie review cards with real poster images |
+| **Team** | ProfileCard grid with 3D tilt effect for Board, Creative & Management |
+| **Member Portal** | Login/signup for members with localStorage persistence |
+| **Social Footer** | Instagram, YouTube, and contact links |
+
+### 🎨 Design System
+- **Palette**: `#080808` (deep black), `#e8e4d9` (warm ivory), `#c8b89a` (muted gold)
+- **Typography**: Display (Mondwest), Body (Switzer), Meta (PPNeueMontreal), Script (Boska), Wordmark (Vanguard)
+- **Animations**: Scroll-reveal, parallax, card-swap, tilt-on-hover, animated counters
+
+### ⚡ Custom React Bits Components
+- `SplitText` — staggered character-by-character animation
+- `ScrollVelocity` — velocity-sensitive horizontal marquee
+- `CardSwap` — interactive stacked card carousel
+- `ProfileCard` — 3D tilt card with grayscale-to-color image
+- `Spotlight` — cursor-tracking radial glow effect
+- `BlurText` — word-by-word blur-to-focus reveal
+- `AnimatedCounter` — spring-physics number counter
 
 ---
 
-## Project Structure
+## 🚀 How to Run
 
-```
-NaqaabFilmmaking/
-├── frontend/          # React app
-│   ├── public/
-│   └── src/
-│       ├── components/
-│       ├── data/
-│       └── index.css
-└── backend/           # FastAPI app
-    ├── server.py
-    └── requirements.txt
-```
+### Prerequisites
+- **Node.js** ≥ 16
+- **npm** ≥ 8
 
----
-
-## 1. Backend Setup
-
-### 1a. Create a virtual environment
+### Frontend (React)
 
 ```bash
-cd backend
-python3 -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
-```
+# 1. Clone the repo
+git clone https://github.com/TharunAdithyan120506/NaqaabFilmmaking.git
+cd NaqaabFilmmaking
 
-### 1b. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 1c. Configure environment variables
-
-Create a `.env` file inside the `backend/` directory:
-
-```env
-MONGO_URL=mongodb://localhost:27017
-DB_NAME=naqaab
-```
-
-> **MongoDB Atlas:** Replace `MONGO_URL` with your Atlas connection string, e.g.
-> `mongodb+srv://<user>:<password>@cluster0.mongodb.net/`
-
-### 1d. Run the backend server
-
-```bash
-uvicorn server:app --reload --port 8001
-```
-
-The API will be available at `http://localhost:8001`.
-
----
-
-## 2. Frontend Setup
-
-### 2a. Install dependencies
-
-```bash
+# 2. Install frontend dependencies
 cd frontend
-npm install --legacy-peer-deps
-```
+npm install
 
-> `--legacy-peer-deps` is required due to peer dependency conflicts between `react-day-picker` and `date-fns`.
-
-### 2b. Configure environment variables (optional)
-
-If you need to point the frontend at a custom backend URL, create `frontend/.env`:
-
-```env
-REACT_APP_API_URL=http://localhost:8001
-```
-
-### 2c. Start the development server
-
-```bash
+# 3. Start the development server
 npm start
 ```
 
-The site will open at **`http://localhost:3000`**.
+The site will launch at **http://localhost:3000**
+
+### Backend (Optional — FastAPI)
+
+The backend is optional and only needed for database features (member management).
+
+```bash
+# 1. Navigate to backend
+cd backend
+
+# 2. Create a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Set environment variables
+cp .env.example .env
+# Edit .env with your MongoDB URI and JWT secret
+
+# 5. Run the server
+uvicorn main:app --reload --port 8000
+```
+
+### Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017` |
+| `JWT_SECRET` | JWT signing secret | (required) |
+| `PORT` | Backend port | `8000` |
 
 ---
 
-## 3. Running Both Together
+## 📁 Project Structure
 
-Open two terminal tabs:
-
-```bash
-# Terminal 1 — Backend
-cd backend && source venv/bin/activate && uvicorn server:app --reload --port 8001
-
-# Terminal 2 — Frontend
-cd frontend && npm start
+```
+NaqaabFilmmaking/
+├── frontend/
+│   ├── public/
+│   │   └── assets/images/      # Logo, header images
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── react-bits/     # Custom animation components
+│   │   │   ├── Navbar.jsx      # Dynamic Island dock navbar
+│   │   │   ├── CinematicIntro.jsx
+│   │   │   ├── HeroSection.jsx
+│   │   │   ├── FilmsRail.jsx   # PRODUCTIONS section
+│   │   │   ├── StatsSection.jsx
+│   │   │   ├── AboutSection.jsx
+│   │   │   ├── NaqaabPicks.jsx # Critics' Table
+│   │   │   ├── TeamSection.jsx
+│   │   │   └── ...
+│   │   ├── data.js             # Films, team, events data
+│   │   ├── App.js              # Root with Lenis + Framer Motion
+│   │   └── index.css           # Global design system
+│   └── package.json
+├── backend/
+│   ├── main.py                 # FastAPI entry
+│   ├── requirements.txt
+│   └── ...
+└── README.md
 ```
 
 ---
 
-## 4. Production Build
+## 🛠️ Tech Stack
 
-```bash
-cd frontend
-npm run build
-```
-
-Outputs optimized static files to `frontend/build/`.
-
----
-
-## Member Portal (Demo Credentials)
-
-| Role | ID | Password |
-|------|----|----------|
-| Member | `member` | `naqaab2025` |
-| Board | `board` | `naqaab#board` |
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React (CRA + CRACO) |
+| Styling | Tailwind CSS + Vanilla CSS |
+| Animation | Framer Motion |
+| Smooth Scroll | Lenis (`@studio-freight/lenis`) |
+| Icons | Lucide React |
+| Backend | FastAPI + Motor (MongoDB) |
+| Auth | JWT + bcrypt |
 
 ---
 
-## Key Features
+## 📝 Demo Login
 
-- 🎬 Cinematic intro sequence with film-counter and typewriter effect
-- ⬛ Hollywood-grade black-and-white brand theme with parallax scrolling
-- 🎞️ Films rail with Swiper horizontal scroll
-- 🎭 Team cards with 3D tilt perspective effect
-- 🔐 Member portal with RSVP, workshop registration, and board admin panel
-- 📡 Moving ticker (Naqaab Picks) and scroll-reveal animations
+Use these credentials to test the member portal:
+
+| Field | Value |
+|-------|-------|
+| Email | `demo@naqaab.in` |
+| Password | `naqaab2024` |
 
 ---
 
-## Links
+## 📜 License
 
-- Instagram: [@naqaabfilms](https://www.instagram.com/naqaabfilms/)
-- Picks: [@naqaabpicks](https://www.instagram.com/naqaabpicks/)
-- Email: naqaabfilms.mit@manipal.edu
+This project is maintained by the **Naqaab Filmmaking Club** at Manipal Institute of Technology.
+
+---
+
+<p align="center">
+  <strong>🎭 naqaab</strong><br/>
+  <em>"Every face tells a story. Every mask hides one."</em>
+</p>

@@ -1,181 +1,99 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+const STAGES = [
+  { text: "LIGHTS.", hold: 400 },
+  { text: "CAMERA.", hold: 400 },
+  { text: "ACTION.", hold: 700 },
+];
+
 export default function CinematicIntro({ onComplete, onSkip }) {
-  const [phase, setPhase] = useState(0);
-  const [counter, setCounter] = useState(1);
-  const [typedText, setTypedText] = useState("");
-  const [showSkip, setShowSkip] = useState(false);
-  const fullText = "naqaab FILMMAKING";
+  const [stage, setStage] = useState(0);
+  const [showFlash, setShowFlash] = useState(false);
 
   useEffect(() => {
-    const skipTimer = setTimeout(() => setShowSkip(true), 500);
-    return () => clearTimeout(skipTimer);
-  }, []);
-
-  // Phase 0: Film counter (1-2-3-4)
-  useEffect(() => {
-    if (phase === 0) {
-      const interval = setInterval(() => {
-        setCounter((c) => {
-          if (c >= 4) {
-            clearInterval(interval);
-            setPhase(1);
-            return 4;
-          }
-          return c + 1;
-        });
-      }, 200);
-      return () => clearInterval(interval);
-    }
-  }, [phase]);
-
-  // Phase 1: Logo appears for 600ms
-  useEffect(() => {
-    if (phase === 1) {
-      const t = setTimeout(() => setPhase(2), 700);
-      return () => clearTimeout(t);
-    }
-  }, [phase]);
-
-  // Phase 2: Typewriter text
-  useEffect(() => {
-    if (phase === 2) {
-      let i = 0;
-      const interval = setInterval(() => {
-        i++;
-        setTypedText(fullText.slice(0, i));
-        if (i >= fullText.length) {
-          clearInterval(interval);
-          setTimeout(() => setPhase(3), 200);
-        }
-      }, 50);
-      return () => clearInterval(interval);
-    }
-  }, [phase]);
-
-  // Phase 3: Subtitle → Phase 4
-  useEffect(() => {
-    if (phase === 3) {
-      const t = setTimeout(() => setPhase(4), 600);
-      return () => clearTimeout(t);
-    }
-  }, [phase]);
-
-  // Phase 4: Wipe out → done
-  useEffect(() => {
-    if (phase === 4) {
-      const t = setTimeout(() => {
-        setPhase(5);
+    if (stage < STAGES.length) {
+      // 400ms fade in + hold length + 400ms fade out = total stage time
+      const totalTime = 400 + STAGES[stage].hold + 400;
+      const timer = setTimeout(() => {
+        setStage(s => s + 1);
+      }, totalTime);
+      return () => clearTimeout(timer);
+    } else if (stage === STAGES.length) {
+      // Trigger flash
+      setShowFlash(true);
+      const flashTimer = setTimeout(() => {
         onComplete();
-      }, 500);
-      return () => clearTimeout(t);
+      }, 300); // Wait for flash to peek before completing
+      return () => clearTimeout(flashTimer);
     }
-  }, [phase, onComplete]);
+  }, [stage, onComplete]);
 
   return (
-    <AnimatePresence>
-      {phase < 5 && (
-        <motion.div
-          data-testid="cinematic-intro"
-          className="fixed inset-0 z-[200] flex items-center justify-center"
-          style={{ background: "#000" }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
+    <motion.div
+      data-testid="cinematic-intro"
+      className="fixed inset-0 z-[200] flex items-center justify-center overflow-hidden"
+      style={{ background: "#050505" }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
+      {/* Intro localized film grain overlay (5%) */}
+      <div 
+        className="absolute inset-0 z-[1] pointer-events-none opacity-5"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
+          animation: "grain-shift 0.15s steps(1) infinite"
+        }}
+      />
+
+      <AnimatePresence mode="wait">
+        {stage < STAGES.length && (
+          <motion.div
+            key={stage}
+            className="z-10 text-center font-display uppercase text-[#e8e4d9]"
+            style={{
+              fontWeight: 800,
+              fontSize: "clamp(4rem, 10vw, 9rem)",
+              letterSpacing: "0.3em",
+            }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{
+              duration: 0.4,
+              ease: [0.25, 0.1, 0.25, 1], // cinematic curve
+            }}
+          >
+            {STAGES[stage].text}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* White Flash ending */}
+      <AnimatePresence>
+        {showFlash && (
+          <motion.div
+            className="absolute inset-0 z-50 bg-[#e8e4d9]"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            onAnimationComplete={() => onComplete()}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Skip button visible on delay */}
+      {!showFlash && (
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 1 }}
+          onClick={onComplete}
+          className="absolute top-6 right-6 z-20 font-meta text-[10px] tracking-[0.2em] text-[var(--dim-white)] hover:text-[#e8e4d9] uppercase border border-[rgba(232,228,217,0.1)] px-4 py-2 hover:border-[rgba(232,228,217,0.4)] transition-all duration-300"
         >
-          {/* Film counter — pure white */}
-          {phase === 0 && (
-            <motion.div
-              className="font-display text-[var(--white)] text-8xl tracking-widest"
-              key="counter"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              {counter}
-            </motion.div>
-          )}
-
-          {/* Logo + text */}
-          {phase >= 1 && phase < 4 && (
-            <div className="flex flex-col items-center gap-6">
-              <motion.img
-                src="/assets/images/logo.png"
-                alt="Naqaab Logo"
-                className="w-32 h-32 md:w-40 md:h-40 object-contain"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                style={{ filter: "drop-shadow(0 0 20px rgba(255,255,255,0.1))" }}
-              />
-
-              {phase >= 2 && (
-                <motion.div
-                  className="text-center"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                >
-                  <div className="font-display text-4xl md:text-6xl tracking-[0.3em] text-[var(--white)]">
-                    <span className="font-wordmark text-3xl md:text-5xl tracking-[0.15em]">
-                      {typedText.slice(0, 7)}
-                    </span>
-                    {typedText.length > 7 && (
-                      <span className="font-display ml-2 tracking-[0.25em]">
-                        {typedText.slice(7)}
-                      </span>
-                    )}
-                    <span
-                      className="inline-block w-[2px] h-[1em] ml-1 align-middle"
-                      style={{
-                        background: "var(--white)",
-                        animation: "blink-cursor 0.8s infinite",
-                      }}
-                    />
-                  </div>
-                </motion.div>
-              )}
-
-              {phase >= 3 && (
-                <motion.p
-                  className="font-meta text-xs md:text-sm tracking-[0.25em] text-[var(--dim-white)] uppercase"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  Manipal Institute of Technology
-                </motion.p>
-              )}
-            </div>
-          )}
-
-          {/* Scanline wipe — white gradient */}
-          {phase === 4 && (
-            <motion.div
-              className="absolute inset-0"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              style={{
-                background: "linear-gradient(90deg, transparent, var(--white), transparent)",
-                transformOrigin: "left",
-                height: "2px",
-                top: "50%",
-              }}
-            />
-          )}
-
-          {/* Skip button */}
-          {showSkip && phase < 4 && (
-            <button
-              data-testid="skip-intro-btn"
-              onClick={onSkip}
-              className="absolute top-6 right-6 font-meta text-xs tracking-[0.2em] text-[var(--dim-white)] hover:text-[var(--white)] transition-colors duration-300 uppercase border border-[var(--deep-grey)] px-4 py-2 hover:border-[rgba(245,240,235,0.3)]"
-            >
-              SKIP
-            </button>
-          )}
-        </motion.div>
+          SKIP
+        </motion.button>
       )}
-    </AnimatePresence>
+    </motion.div>
   );
 }

@@ -73,17 +73,17 @@ export const PAST_EVENTS = [
 ];
 
 export const NAQAAB_PICKS = [
-  { film: "Superman", date: "Jul 16, 2025" },
-  { film: "Fantastic Four", date: "Jul 26, 2025" },
-  { film: "Weapons", date: "Aug 10, 2025" },
-  { film: "Kingdom", date: "Aug 12, 2025" },
-  { film: "Coolie", date: "Aug 16, 2025" },
-  { film: "War 2", date: "Aug 24, 2025" },
-  { film: "Dhurandhar", date: "Dec 15, 2025" },
-  { film: "Bhay: The Gaurav Tiwari Mystery", date: "Dec 29, 2025" },
-  { film: "Homebound", date: "Dec 30, 2025" },
-  { film: "Pluribus", date: "Dec 31, 2025" },
-  { film: "Avatar: Fire and Ash", date: "Jan 1, 2026" },
+  { film: "Superman", date: "Jul 16, 2025", poster: "https://image.tmdb.org/t/p/w500/dnp5RWRnFMqEWOhj3cUHgUqFbbE.jpg" },
+  { film: "Fantastic Four", date: "Jul 26, 2025", poster: "https://image.tmdb.org/t/p/w500/4bZ2GEz2tXyZr7NOZmJhmYv7TE3.jpg" },
+  { film: "Weapons", date: "Aug 10, 2025", poster: "https://images.unsplash.com/photo-1535016120720-40c646be5580?q=80&w=400&auto=format&fit=crop" },
+  { film: "Kingdom", date: "Aug 12, 2025", poster: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?q=80&w=400&auto=format&fit=crop" },
+  { film: "Coolie", date: "Aug 16, 2025", poster: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400&auto=format&fit=crop" },
+  { film: "War 2", date: "Aug 24, 2025", poster: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=400&auto=format&fit=crop" },
+  { film: "Dhurandhar", date: "Dec 15, 2025", poster: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=400&auto=format&fit=crop" },
+  { film: "Bhay: The Gaurav Tiwari Mystery", date: "Dec 29, 2025", poster: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=400&auto=format&fit=crop" },
+  { film: "Homebound", date: "Dec 30, 2025", poster: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=400&auto=format&fit=crop" },
+  { film: "Pluribus", date: "Dec 31, 2025", poster: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=400&auto=format&fit=crop" },
+  { film: "Avatar: Fire and Ash", date: "Jan 1, 2026", poster: "https://image.tmdb.org/t/p/w500/sJCzEMVmJOQCZaOgUfPgaHLqaKI.jpg" },
 ];
 
 export const BOARD_MEMBERS = [

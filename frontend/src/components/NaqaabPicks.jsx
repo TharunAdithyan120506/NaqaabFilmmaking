@@ -13,15 +13,6 @@ export default function NaqaabPicks() {
       {/* Section divider */}
       <div className="section-divider absolute top-0 left-0 right-0" />
 
-      {/* Subtle film strip background */}
-      <div
-        className="absolute inset-0 opacity-[0.02]"
-        style={{
-          backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 40px, var(--dim-white) 40px, var(--dim-white) 42px)`,
-          backgroundSize: "60px 100%",
-        }}
-      />
-
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 mb-10">
         <ScrollReveal>
           <div className="flex items-center gap-3 mb-3">
@@ -71,7 +62,7 @@ function PickCard({ pick }) {
       target="_blank"
       rel="noopener noreferrer"
       data-testid={`pick-card-${pick.film.replace(/\s+/g, "-").toLowerCase()}`}
-      className="group flex-shrink-0 w-[280px] h-[360px] relative flex flex-col justify-end p-5 overflow-hidden transition-all duration-500 hover:-translate-y-2"
+      className="group flex-shrink-0 w-[280px] h-[400px] relative flex flex-col justify-end overflow-hidden transition-all duration-500 hover:-translate-y-2 rounded-sm"
       style={{
         background: "var(--black)",
         border: "1px solid var(--deep-grey)",
@@ -85,29 +76,39 @@ function PickCard({ pick }) {
         e.currentTarget.style.boxShadow = "none";
       }}
     >
-      {/* Background atmosphere */}
+      {/* Movie Poster Background */}
+      {pick.poster && (
+        <img
+          src={pick.poster}
+          alt={pick.film}
+          className="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+          style={{ filter: "brightness(0.5) grayscale(0.4)" }}
+          onMouseEnter={(e) => { e.target.style.filter = "brightness(0.65) grayscale(0)"; }}
+          onMouseLeave={(e) => { e.target.style.filter = "brightness(0.5) grayscale(0.4)"; }}
+          loading="lazy"
+        />
+      )}
+
+      {/* Dark gradient overlay for text readability */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 z-[1]"
         style={{
-          background: `
-            radial-gradient(ellipse at 50% 30%, rgba(245,240,235,0.04) 0%, transparent 70%),
-            linear-gradient(180deg, transparent 40%, var(--black) 100%)
-          `,
+          background: "linear-gradient(180deg, transparent 20%, rgba(0,0,0,0.75) 60%, rgba(0,0,0,0.95) 100%)",
         }}
       />
 
-      {/* Date badge — dark transparent */}
+      {/* Date badge */}
       <div
         className="absolute top-4 right-4 font-meta text-[9px] tracking-[0.15em] uppercase px-2 py-1 z-[2]"
-        style={{ background: "rgba(245,240,235,0.1)", color: "var(--dim-white)" }}
+        style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)", color: "var(--dim-white)", borderRadius: "2px" }}
       >
         {pick.date}
       </div>
 
       {/* Content */}
-      <div className="relative z-[2]">
+      <div className="relative z-[2] p-5">
         <h3
-          className="font-display text-2xl md:text-3xl mb-4 leading-tight"
+          className="font-display text-2xl md:text-3xl mb-4 leading-tight drop-shadow-lg"
           style={{ color: "var(--white)" }}
         >
           {pick.film.toUpperCase()}

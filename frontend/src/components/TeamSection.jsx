@@ -1,219 +1,139 @@
-import { useRef } from "react";
 import { BOARD_MEMBERS, CREATIVE_MEMBERS, MANAGEMENT_MEMBERS } from "@/data";
-import ScrollReveal from "@/components/ScrollReveal";
-import { User } from "lucide-react";
+import { ProfileCard } from "./react-bits/ProfileCard";
+import { motion } from "framer-motion";
+
+const ALL_MEMBERS = [...BOARD_MEMBERS, ...CREATIVE_MEMBERS, ...MANAGEMENT_MEMBERS];
 
 export default function TeamSection() {
   return (
     <div
       data-testid="team-section"
-      className="relative py-24 md:py-32"
-      style={{ background: "var(--black)" }}
+      className="py-32 relative overflow-hidden"
+      style={{ background: "#050505" }}
     >
-      {/* Section divider */}
-      <div className="section-divider absolute top-0 left-0 right-0" />
-
-      <div className="max-w-[1400px] mx-auto px-6 md:px-10">
-        <ScrollReveal>
-          <p
-            className="font-meta text-[10px] tracking-[0.4em] uppercase mb-3"
-            style={{ color: "var(--dim-white)" }}
-          >
+      <div className="max-w-7xl mx-auto px-6 md:px-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-24"
+        >
+          <p className="font-meta text-[10px] tracking-[0.4em] text-[var(--dim-white)] uppercase mb-6">
             MEET THE CREW
           </p>
-          <h2
-            className="font-display text-3xl md:text-5xl lg:text-6xl mb-12"
-            style={{ color: "var(--white)" }}
-          >
-            EXECUTIVE BOARD 2025-2026
+          <h2 className="font-display text-5xl md:text-7xl tracking-wide text-[var(--white)] mb-8">
+            THE CREATIVES
           </h2>
-        </ScrollReveal>
+          <div className="w-px h-16 bg-gradient-to-b from-[var(--dim-white)] to-transparent mx-auto opacity-30" />
+        </motion.div>
 
-        {/* Board Members */}
-        <div className="relative mb-20">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {BOARD_MEMBERS.map((member, i) => (
-              <ScrollReveal key={member.name + member.role} delay={i * 80}>
-                <TeamCard member={member} />
-              </ScrollReveal>
+        {/* Executive Board */}
+        <motion.div
+          className="mb-20"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <p className="font-meta text-[10px] tracking-[0.3em] text-[#c8b89a] uppercase mb-8">
+            EXECUTIVE BOARD 2025–2026
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {BOARD_MEMBERS.map((member, idx) => (
+              <motion.div
+                key={member.name + idx}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1, duration: 0.6 }}
+              >
+                <ProfileCard
+                  image={`https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(member.name)}&backgroundColor=111111&textColor=e8e4d9`}
+                  title={member.name}
+                  subtitle={member.role}
+                />
+              </motion.div>
             ))}
           </div>
-          <p
-            className="font-display text-5xl md:text-7xl absolute -bottom-6 right-0 select-none pointer-events-none"
-            style={{ color: "var(--white)", opacity: 0.03 }}
-          >
-            EXECUTIVE BOARD
-          </p>
-        </div>
+        </motion.div>
 
         {/* Creative & Production */}
-        <div className="relative mb-20">
-          <ScrollReveal>
-            <h3 className="font-display text-xl tracking-[0.2em] mb-8" style={{ color: "var(--white)" }}>
-              CREATIVE & PRODUCTION
-            </h3>
-          </ScrollReveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {CREATIVE_MEMBERS.map((member, i) => (
-              <ScrollReveal key={member.name + member.role} delay={i * 80}>
-                <TeamCard member={member} />
-              </ScrollReveal>
+        <motion.div
+          className="mb-20"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <p className="font-meta text-[10px] tracking-[0.3em] text-[#c8b89a] uppercase mb-8">
+            CREATIVE & PRODUCTION
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {CREATIVE_MEMBERS.map((member, idx) => (
+              <motion.div
+                key={member.name + idx}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1, duration: 0.6 }}
+              >
+                <ProfileCard
+                  image={`https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(member.name)}&backgroundColor=111111&textColor=e8e4d9`}
+                  title={member.name}
+                  subtitle={member.role}
+                />
+              </motion.div>
             ))}
           </div>
-          <p
-            className="font-display text-5xl md:text-7xl absolute -bottom-6 right-0 select-none pointer-events-none"
-            style={{ color: "var(--white)", opacity: 0.03 }}
-          >
-            CREATIVE
-          </p>
-        </div>
+        </motion.div>
 
         {/* Management & Operations */}
-        <div className="relative mb-20">
-          <ScrollReveal>
-            <h3 className="font-display text-xl tracking-[0.2em] mb-8" style={{ color: "var(--white)" }}>
-              MANAGEMENT & OPERATIONS
-            </h3>
-          </ScrollReveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
-            {MANAGEMENT_MEMBERS.map((member, i) => (
-              <ScrollReveal key={member.name + member.role} delay={i * 80}>
-                <TeamCard member={member} />
-              </ScrollReveal>
+        <motion.div
+          className="mb-20"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <p className="font-meta text-[10px] tracking-[0.3em] text-[#c8b89a] uppercase mb-8">
+            MANAGEMENT & OPERATIONS
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+            {MANAGEMENT_MEMBERS.map((member, idx) => (
+              <motion.div
+                key={member.name + idx}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1, duration: 0.6 }}
+              >
+                <ProfileCard
+                  image={`https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(member.name)}&backgroundColor=111111&textColor=e8e4d9`}
+                  title={member.name}
+                  subtitle={member.role}
+                />
+              </motion.div>
             ))}
           </div>
-          <p
-            className="font-display text-5xl md:text-7xl absolute -bottom-6 right-0 select-none pointer-events-none"
-            style={{ color: "var(--white)", opacity: 0.03 }}
-          >
-            MANAGEMENT
-          </p>
-        </div>
+        </motion.div>
 
         {/* Faculty Advisor */}
-        <ScrollReveal>
-          <div
-            className="max-w-md mx-auto text-center p-8"
-            style={{
-              border: "1px solid rgba(245,240,235,0.2)",
-              background: "var(--off-black)",
-            }}
-          >
-            <p
-              className="font-meta text-[10px] tracking-[0.3em] uppercase mb-4"
-              style={{ color: "var(--dim-white)" }}
-            >
-              FACULTY ADVISOR
-            </p>
-            <p className="font-serif italic text-xl mb-2" style={{ color: "var(--white)" }}>
-              Mr. Nithesh Kumar KS
-            </p>
-            <p className="font-meta text-[10px] tracking-[0.1em] leading-relaxed" style={{ color: "var(--dim-white)" }}>
-              Assistant Professor &middot; Dept. of Humanities & Management
-              <br />
-              Manipal Institute of Technology
-            </p>
-          </div>
-        </ScrollReveal>
-      </div>
-    </div>
-  );
-}
-
-function TeamCard({ member }) {
-  const cardRef = useRef(null);
-
-  const handleMouseMove = (e) => {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -8;
-    const rotateY = ((x - centerX) / centerX) * 8;
-    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-  };
-
-  const handleMouseLeave = () => {
-    if (cardRef.current) {
-      cardRef.current.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)";
-    }
-  };
-
-  return (
-    <div
-      ref={cardRef}
-      data-testid={`team-card-${member.name.replace(/\s+/g, "-").toLowerCase()}`}
-      className="group p-5 transition-all duration-500"
-      style={{
-        background: "var(--off-black)",
-        border: "1px solid var(--deep-grey)",
-        transformStyle: "preserve-3d",
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "rgba(245,240,235,0.15)";
-        e.currentTarget.style.boxShadow = "0 0 30px rgba(245,240,235,0.03)";
-      }}
-      onMouseOut={(e) => {
-        e.currentTarget.style.borderColor = "var(--deep-grey)";
-        e.currentTarget.style.boxShadow = "none";
-      }}
-    >
-      {/* Avatar placeholder */}
-      <div
-        className="w-full aspect-square mb-5 flex items-center justify-center overflow-hidden transition-all duration-500"
-        style={{
-          background: "var(--black)",
-          border: "1px solid var(--deep-grey)",
-          filter: "grayscale(1)",
-        }}
-        onMouseEnter={(e) => { e.currentTarget.style.filter = "grayscale(0)"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.filter = "grayscale(1)"; }}
-      >
-        <User
-          size={64}
-          style={{ color: "var(--ash)", opacity: 0.5 }}
-        />
-      </div>
-
-      {/* Role tag — white */}
-      <div className="flex items-center gap-2 mb-2">
-        <p className="font-display text-sm tracking-[0.15em]" style={{ color: "var(--white)" }}>
-          {member.role.toUpperCase()}
-        </p>
-        <span className="font-meta text-[8px] tracking-[0.1em] px-1.5 py-0.5" style={{ color: "var(--dim-white)", background: "var(--deep-grey)" }}>
-          {member.group.toUpperCase()}
-        </span>
-      </div>
-
-      {/* Name */}
-      <p
-        className="font-serif text-lg mb-3 transition-colors duration-300 group-hover:text-[var(--white)]"
-        style={{ color: "var(--dim-white)" }}
-      >
-        {member.name}
-      </p>
-
-      {/* Quote */}
-      <p
-        className="font-script text-sm mb-4 leading-relaxed line-clamp-2 group-hover:line-clamp-none transition-all"
-        style={{ color: "var(--dim-white)" }}
-      >
-        "{member.quote}"
-      </p>
-
-      {/* Fav films */}
-      <div>
-        <p className="font-meta text-[8px] tracking-[0.15em] uppercase mb-1" style={{ color: "var(--dim-white)" }}>
-          FAV FILMS:
-        </p>
-        <p className="font-meta text-[10px]" style={{ color: "var(--dim-white)", opacity: 0.7 }}>
-          {member.films.join(" \u00B7 ")}
-        </p>
+        <motion.div
+          className="max-w-md mx-auto text-center p-8 border border-[rgba(232,228,217,0.15)]"
+          style={{ background: "var(--off-black)" }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <p className="font-meta text-[10px] tracking-[0.3em] uppercase mb-4" style={{ color: "var(--dim-white)" }}>
+            FACULTY ADVISOR
+          </p>
+          <p className="font-serif italic text-xl mb-2" style={{ color: "var(--white)" }}>
+            Mr. Nithesh Kumar KS
+          </p>
+          <p className="font-meta text-[10px] tracking-[0.1em] leading-relaxed" style={{ color: "var(--dim-white)" }}>
+            Assistant Professor &middot; Dept. of Humanities & Management
+            <br />
+            Manipal Institute of Technology
+          </p>
+        </motion.div>
       </div>
     </div>
   );
