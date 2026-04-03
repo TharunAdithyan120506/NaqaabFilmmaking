@@ -36,7 +36,7 @@ export default function InterestFormModal({ isOpen, onClose }) {
       setSubmitted(false);
       setForm({ name: "", regNo: "", dept: "", year: "", email: "", phone: "", interests: [], reason: "" });
       onClose();
-    }, 2000);
+    }, 3000);
   };
 
   return (
